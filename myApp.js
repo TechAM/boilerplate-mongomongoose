@@ -7,7 +7,7 @@ db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', ()=>console.log('connected to MongoDB'))
 
 const personSchema = new mongoose.Schema({
-  name: String,
+  name: {type: String, required: true},
   age: Number,
   favouriteFood: [String]
 })
