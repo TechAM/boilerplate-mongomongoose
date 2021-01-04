@@ -24,11 +24,13 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ["cheese string", "fridge raiders", "apple"]
   })
   me.save((err, data)=>{
-    if (err) return console.error(err)
-    console.log(`Person ${data.name} successfully created and saved`)
-    done(null, data)
+    if (err){
+      console.log(err)
+    }else{
+      done(null, data)
+    }
   })
-  done(null);
+  // done(null);
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
