@@ -12,7 +12,7 @@ const personSchema = new mongoose.Schema({
 //creating a model from a schema
 const Person = mongoose.model('Person', personSchema);
 
-
+//NOTE: for this stuff to work when deployed to heroku, remove the quote marks from the URL in the config vars in heroku
 const createAndSavePerson = (done) => {
   //an instance of a model is called a document
   const me = new Person({
@@ -24,10 +24,28 @@ const createAndSavePerson = (done) => {
     if (err) return console.error(err)
     done(null, data)
   })
+  done(null)
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  let people = [
+    {
+      name: "Mayank Mukesh",
+      age: 14,
+      favoriteFoods: ["chicken manchurian", "poo"]
+    },
+    {
+      name: "Knob Muncher",
+      age: 53,
+      favouriteFoods: ["pasta sauce", "sunflower seeds", "grass"]
+    }
+  ]
+
+  Person.create(people, (err, data)=>{
+    if(err) return console.error(err)
+    done(null, data)
+  })
+  done(null);
 };
 
 const findPeopleByName = (personName, done) => {
