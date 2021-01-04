@@ -21,7 +21,7 @@ const createAndSavePerson = (done) => {
   const me = new Person({
     name: "Avi",
     age: 20,
-    favouriteFoods: ["cheese string", "fridge raiders", "apple"]
+    favoriteFoods: ["cheese string", "fridge raiders", "apple"]
   })
   me.save((err, data)=>{
     if (err) return console.error(err)
