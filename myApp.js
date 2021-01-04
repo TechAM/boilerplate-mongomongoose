@@ -26,7 +26,7 @@ const createAndSavePerson = (done) => {
   me.save((err, data)=>{
     if (err) return console.error(err)
     console.log(`Person ${data.name} successfully created and saved`)
-    done(err, data)
+    done(null, data)
   })
   done(null);
 };
