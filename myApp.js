@@ -1,29 +1,50 @@
-// require('dotenv').config();
+require('dotenv').config();
 
-var mongoose = require('mongoose')
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser:true, useUnifiedTopology:false})
+// var mongoose = require('mongoose')
+// mongoose.connect(process.env.MONGO_URI, {useNewUrlParser:true, useUnifiedTopology:false})
 
-const personSchema = new mongoose.Schema({
-  name: {type: String, required: true},
+// const personSchema = new mongoose.Schema({
+//   name: {type: String, required: true},
+//   age: Number,
+//   favoriteFoods: [String]
+// })
+
+// //creating a model from a schema
+// const Person = mongoose.model('Person', personSchema);
+
+
+// const createAndSavePerson = (done) => {
+//   //an instance of a model is called a document
+//   const me = new Person({
+//     name: "Avi",
+//     age: 20,
+//     favoriteFoods: ["cheese string", "fridge raiders", "apple"]
+//   })
+//   me.save((err, data)=>{
+//     if (err) return console.error(err)
+//     done(null, data)
+//   })
+// };
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_URI);
+
+/** 2) Create a 'Person' Model */
+var personSchema = new mongoose.Schema({
+  name: String,
   age: Number,
   favoriteFoods: [String]
-})
+});
 
-//creating a model from a schema
-const Person = mongoose.model('Person', personSchema);
+/** 3) Create and Save a Person */
+var Person = mongoose.model('Person', personSchema);
 
+var createAndSavePerson = function(done) {
+  var janeFonda = new Person({name: "Jane Fonda", age: 84, favoriteFoods: ["vodka", "air"]});
 
-const createAndSavePerson = (done) => {
-  //an instance of a model is called a document
-  const me = new Person({
-    name: "Avi",
-    age: 20,
-    favoriteFoods: ["cheese string", "fridge raiders", "apple"]
-  })
-  me.save((err, data)=>{
-    if (err) return console.error(err)
+  janeFonda.save(function(err, data) {
+    if (err) return console.error(err);
     done(null, data)
-  })
+  });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
