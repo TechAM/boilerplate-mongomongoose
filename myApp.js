@@ -23,12 +23,9 @@ const createAndSavePerson = (done) => {
     age: 20,
     favoriteFoods: ["cheese string", "fridge raiders", "apple"]
   })
-  me.save(function(err, data){
-    if (err){
-      console.log(err)
-    }else{
-      done(null, data)
-    }
+  me.save((err, data)=>{
+    if (err) return console.error(err)
+    done(null, data)
   })
   // done(null);
 };
