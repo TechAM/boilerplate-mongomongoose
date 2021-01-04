@@ -12,10 +12,12 @@ const personSchema = new mongoose.Schema({
   favoriteFoods: [String]
 })
 
+//creating a model from a schema
 const Person = mongoose.model('Person', personSchema);
 
 
 const createAndSavePerson = (done) => {
+  //an instance of a model is called a document
   const me = new Person({
     name: "Avi",
     age: 20,
@@ -23,9 +25,10 @@ const createAndSavePerson = (done) => {
   })
   me.save((err, data)=>{
     if (err) return console.error(err)
-    console.log(`Person ${me.name} successfully created and saved`)
+    console.log(`Person ${data.name} successfully created and saved`)
+    done(err, data)
   })
-  done(null /*, data*/);
+  done(null);
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
