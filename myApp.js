@@ -57,6 +57,7 @@ const findPeopleByName = (personName, done) => {
 };
 
 const findOneByFood = (food, done) => {
+  //finds person if the array favoriteFoods contains food
   Person.findOne({favoriteFoods:food}, (err, person)=>{
     if(err) return console.error(err)
     done(null, person)
@@ -65,7 +66,11 @@ const findOneByFood = (food, done) => {
 };
 
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findById(personId, (err, person)=>{
+    if(err) return console.error(err)
+    done(null, person)
+  })
+  // done(null /*, data*/);
 };
 
 const findEditThenSave = (personId, done) => {
