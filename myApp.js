@@ -92,14 +92,23 @@ const findEditThenSave = (personId, done) => {
 //recent versions of Mongoose have simplified document updating
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-  Person.findOne({name:personName}, (err, person)=>{
+  // Person.findOne({name:personName}, (err, person)=>{
+  //   if(err) return console.error(err)
+  //   person.age = ageToSet
+  //   console.log(person)
+  //   person.save((err, data)=>{
+  //     if(err) return console.error(err)
+  //     done(null, data)
+  //   })
+  // })
+
+  //the newer way of doing it
+  //3rd argment specifies that I want the version of the document AFTER updating
+  //(but from my quick testing, omitting this argument doesn't make a difference, so idk...)
+  Person.findOneAndUpdate({name:personName}, {age: ageToSet}, {new:true}, (err, updatedPerson)=>{
     if(err) return console.error(err)
-    person.age = ageToSet
-    console.log(person)
-    person.save((err, data)=>{
-      if(err) return console.error(err)
-      done(null, data)
-    })
+    console.log("returning updated geezer")
+    done(null, updatedPerson)
   })
   // done(null /*, data*/);
 };
