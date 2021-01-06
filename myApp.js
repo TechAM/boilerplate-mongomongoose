@@ -73,12 +73,12 @@ const findPersonById = (personId, done) => {
   // done(null /*, data*/);
 };
 
+//classic method for updating documents
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
   Person.findById(personId, (err, person)=>{
     if(err) return console.error(err)
     person.favoriteFoods.push(foodToAdd)
-    // console.log(person)
     person.save((err, data)=>{
       if(err) return console.error(err)
       console.log(data)
@@ -89,10 +89,19 @@ const findEditThenSave = (personId, done) => {
   // done(null /*, data*/);
 };
 
+//recent versions of Mongoose have simplified document updating
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-
-  done(null /*, data*/);
+  Person.findOne({name:personName}, (err, person)=>{
+    if(err) return console.error(err)
+    person.age = ageToSet
+    console.log(person)
+    person.save((err, data)=>{
+      if(err) return console.error(err)
+      done(null, data)
+    })
+  })
+  // done(null /*, data*/);
 };
 
 const removeById = (personId, done) => {
