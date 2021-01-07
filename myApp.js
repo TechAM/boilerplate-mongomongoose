@@ -114,17 +114,20 @@ const findAndUpdate = (personName, done) => {
 };
 
 const removeById = (personId, done) => {
-  Person.findByIdAndRemove(personId, (err, person)=>{
+  Person.findByIdAndRemove(personId, (err, removedPerson)=>{
     if(err) return console.error(err)
-    console.log(person)
-    done(null, person);
+    done(null, removedPerson);
   })
 };
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+  Person.remove({name:nameToRemove}, (err, data)=>{
+    //Model.remove doesn't return the deleted document(s)
+    //instead it returns a JSON object containing the outcome of the operation, including number of items affected 
+    if(err) return console.error(err)
+    done(null, data)
+  })
 };
 
 const queryChain = (done) => {
